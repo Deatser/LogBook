@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "114507095258",
+    "project_id": "logbook-by-seleznev",
+    "storage_bucket": "logbook-by-seleznev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:114507095258:android:55f5a9c9bb7564657b19e3",
+        "android_client_info": {
+          "package_name": "com.example.logbook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApWG6VnI7QIoAB5TBPU_YjCb1NZ9sVVNs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

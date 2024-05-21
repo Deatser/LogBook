@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/welcomeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Добро пожаловать, администратор! Заполните все поля для изменения расписания"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:paddingBottom="24dp"/>
+
+    <EditText
+        android:id="@+id/editTextGroupNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Номер Группы"
+        android:inputType="text"
+        android:paddingBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextDayOfWeek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="День недели"
+        android:inputType="text"
+        android:paddingBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextLessonNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Номер пары"
+        android:inputType="number"
+        android:paddingBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextLessonName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Название пары"
+        android:inputType="text"
+        android:paddingBottom="16dp"/>
+
+    <Button
+        android:id="@+id/SendBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Отправить данные"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>

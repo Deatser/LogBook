@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Гайд"
+        android:icon="@drawable/question_answer_help_svgrepo_com"
+        android:id="@+id/guide"/>
+    <item android:title="Журнал"
+        android:icon="@drawable/diary_svgrepo_com"
+        android:id="@+id/diary"/>
+    <item android:title="Настройки"
+        android:icon="@drawable/gear_settings_svgrepo_com"
+        android:id="@+id/settings"/>
+
+</menu>
