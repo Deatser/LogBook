@@ -147,7 +147,6 @@ public class ScheduleActivity extends AppCompatActivity {
         // Создаем список расписаний на всю неделю
         weeklySchedule = new ArrayList<>();
 
-        dayList = "Monday";
 
 
         // Создаем пустые списки расписаний для каждого дня недели

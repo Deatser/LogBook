@@ -1,6 +1,8 @@
 package com.example.logbook;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.logbook.databinding.ActivityMainBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -93,6 +96,33 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        // Установим активным элемент "Журнал"
+        bottomNavigationView.setSelectedItemId(R.id.diary);
+        // Снимите выделение с всех элементов
+        bottomNavigationView.getMenu().findItem(R.id.diary).setChecked(false);
+
+
+        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                int itemId = item.getItemId();
+                if (itemId == R.id.guide) {
+                    startActivity(new Intent(MainActivity.this, GuideActivity.class));
+                    return true;
+                } else if (itemId == R.id.diary) {
+                    startActivity(new Intent(MainActivity.this, ScheduleActivity.class));
+                    return true;
+                } else if (itemId == R.id.settings) {
+                    startActivity(new Intent(MainActivity.this, ActivitySettings.class));
+                    return true;
+                }
+
+                return false;
             }
         });
 

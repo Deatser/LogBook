@@ -19,49 +19,56 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewMonday"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/schedule_background"/>
 
             <!-- RecyclerView для вторника -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewTuesday"
-                android:layout_marginTop="15dp"
+
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/schedule_background"/>
 
             <!-- RecyclerView для среды -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewWednesday"
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/schedule_background"/>
 
             <!-- RecyclerView для четверга -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewThursday"
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/schedule_background"/>
 
             <!-- RecyclerView для пятницы -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewFriday"
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/schedule_background"/>
 
             <!-- RecyclerView для субботы -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewSaturday"
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/schedule_background"/>
 
             <!-- RecyclerView для воскресенья -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewSunday"
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/schedule_background"/>
 
             <!-- Кнопка изменения расписания (только для администраторов) -->
             <Button
