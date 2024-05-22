@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!-- Добавляем нижнее меню -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -15,60 +16,65 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- RecyclerView для понедельника -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewMonday"
+            <RadioGroup
+                android:id="@+id/radioGroupDays"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/schedule_background"/>
+                android:orientation="horizontal"
+                android:gravity="center">
 
-            <!-- RecyclerView для вторника -->
+                <!-- Добавляем RadioButton для каждого дня недели -->
+                <RadioButton
+                    android:id="@+id/radioMonday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Пн" />
+
+                <RadioButton
+                    android:id="@+id/radioTuesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Вт" />
+
+                <RadioButton
+                    android:id="@+id/radioWednesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ср" />
+
+                <RadioButton
+                    android:id="@+id/radioThursday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Чт" />
+
+                <RadioButton
+                    android:id="@+id/radioFriday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Пт" />
+
+                <RadioButton
+                    android:id="@+id/radioSaturday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Сб" />
+
+                <RadioButton
+                    android:id="@+id/radioSunday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Вс" />
+
+            </RadioGroup>
+
+
+            <!-- RecyclerView для расписания -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewTuesday"
-
+                android:id="@+id/recyclerViewSchedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/schedule_background"/>
-
-            <!-- RecyclerView для среды -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewWednesday"
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/schedule_background"/>
-
-            <!-- RecyclerView для четверга -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewThursday"
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/schedule_background"/>
-
-            <!-- RecyclerView для пятницы -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewFriday"
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/schedule_background"/>
-
-            <!-- RecyclerView для субботы -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewSaturday"
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/schedule_background"/>
-
-            <!-- RecyclerView для воскресенья -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewSunday"
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/schedule_background"/>
+                android:background="@drawable/schedule_background" />
 
             <!-- Кнопка изменения расписания (только для администраторов) -->
             <Button
@@ -79,19 +85,12 @@
                 android:text="Изменение расписания (Admins Only)"
                 android:visibility="gone"
                 android:layout_gravity="center" />
-
         </LinearLayout>
     </ScrollView>
-
-
-    <!-- Добавляем нижнее меню -->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_nav_menu"/>
-
-
-
 </LinearLayout>

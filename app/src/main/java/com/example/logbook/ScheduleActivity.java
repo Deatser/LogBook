@@ -1,18 +1,20 @@
 package com.example.logbook;
 
+import java.util.Calendar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
 
 import com.example.logbook.databinding.ActivityScheduleBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,6 +24,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.checkerframework.common.value.qual.StringVal;
+
+import java.util.ArrayList;
 
 public class ScheduleActivity extends AppCompatActivity {
 
@@ -33,10 +39,7 @@ public class ScheduleActivity extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private ArrayList<ArrayList<String>> weeklySchedule;
-    private String dayList;
-
     private String UserId = mAuth.getCurrentUser().getUid();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +55,12 @@ public class ScheduleActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         ref = database.getReference();
 
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        // Установим активным элемент "Журнал"
         bottomNavigationView.setSelectedItemId(R.id.diary);
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                 int itemId = item.getItemId();
                 if (itemId == R.id.guide) {
                     startActivity(new Intent(ScheduleActivity.this, GuideActivity.class));
@@ -71,11 +71,9 @@ public class ScheduleActivity extends AppCompatActivity {
                     startActivity(new Intent(ScheduleActivity.this, ActivitySettings.class));
                     return true;
                 }
-
                 return false;
             }
         });
-
 
         // Установка слушателя для кнопки изменения расписания
         Button buttonEditSchedule = findViewById(R.id.buttonEditSchedule);
@@ -83,72 +81,55 @@ public class ScheduleActivity extends AppCompatActivity {
         ref1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child("root").exists()){
+                if (snapshot.child("root").exists()) {
                     buttonEditSchedule.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
         buttonEditSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // Переход к активности редактирования расписания
                 Intent intent = new Intent(ScheduleActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
 
-        // Инициализация RecyclerView для каждого дня недели
+        // Инициализация RecyclerView
+        RecyclerView recyclerViewSchedule = findViewById(R.id.recyclerViewSchedule);
+        recyclerViewSchedule.setLayoutManager(new LinearLayoutManager(this));
 
-        initRecyclerViews();
+        // Инициализация RadioGroup и RadioButton
+        RadioGroup radioGroupDays = findViewById(R.id.radioGroupDays);
 
-        // Загрузка расписания на всю неделю
-        loadWeeklySchedule();
+        radioGroupDays.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // Получаем выбранную радиокнопку
+                RadioButton checkedRadioButton = findViewById(checkedId);
+                String selectedDay = checkedRadioButton.getText().toString();
+                // Отображаем расписание для выбранного дня недели
+                displayScheduleForSelectedDay(selectedDay);
+            }
+        });
+
+        // Загрузка расписания на всю неделю с использованием обратного вызова
+        loadWeeklySchedule(new OnScheduleLoadListener() {
+            @Override
+            public void onScheduleLoaded() {
+                // Отображение расписания на текущий день после загрузки данных
+                displayScheduleForToday();
+            }
+        });
     }
 
-
-    private void initRecyclerViews() {
-        // Инициализация RecyclerView для понедельника
-        RecyclerView recyclerViewMonday = findViewById(R.id.recyclerViewMonday);
-        recyclerViewMonday.setLayoutManager(new LinearLayoutManager(this));
-
-        // Инициализация RecyclerView для вторника
-        RecyclerView recyclerViewTuesday = findViewById(R.id.recyclerViewTuesday);
-        recyclerViewTuesday.setLayoutManager(new LinearLayoutManager(this));
-
-        // Инициализация RecyclerView для среды
-        RecyclerView recyclerViewWednesday = findViewById(R.id.recyclerViewWednesday);
-        recyclerViewWednesday.setLayoutManager(new LinearLayoutManager(this));
-
-        // Инициализация RecyclerView для четверга
-        RecyclerView recyclerViewThursday = findViewById(R.id.recyclerViewThursday);
-        recyclerViewThursday.setLayoutManager(new LinearLayoutManager(this));
-
-        // Инициализация RecyclerView для пятницы
-        RecyclerView recyclerViewFriday = findViewById(R.id.recyclerViewFriday);
-        recyclerViewFriday.setLayoutManager(new LinearLayoutManager(this));
-
-        // Инициализация RecyclerView для субботы
-        RecyclerView recyclerViewSaturday = findViewById(R.id.recyclerViewSaturday);
-        recyclerViewSaturday.setLayoutManager(new LinearLayoutManager(this));
-
-        // Инициализация RecyclerView для воскресенья
-        RecyclerView recyclerViewSunday = findViewById(R.id.recyclerViewSunday);
-        recyclerViewSunday.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-    private void loadWeeklySchedule() {
+    private void loadWeeklySchedule(OnScheduleLoadListener listener) {
         // Создаем список расписаний на всю неделю
         weeklySchedule = new ArrayList<>();
-
-
-
         // Создаем пустые списки расписаний для каждого дня недели
         for (int i = 0; i < 7; i++) {
             weeklySchedule.add(new ArrayList<String>());
@@ -156,6 +137,8 @@ public class ScheduleActivity extends AppCompatActivity {
 
         // Массив с названиями дней недели
         String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        int daysToLoad = daysOfWeek.length;
+        int[] daysLoaded = {0};  // Using an array to keep track of the count within the inner class
 
         for (int i = 0; i < daysOfWeek.length; i++) {
             int dayIndex = i;
@@ -177,8 +160,10 @@ public class ScheduleActivity extends AppCompatActivity {
                                             weeklySchedule.get(dayIndex).add(para);
                                         }
                                     }
-                                    // После загрузки расписания вызываем метод для отображения расписания
-                                    displayWeeklySchedule();
+                                    daysLoaded[0]++;
+                                    if (daysLoaded[0] == daysToLoad) {
+                                        listener.onScheduleLoaded();
+                                    }
                                 }
 
                                 @Override
@@ -198,28 +183,92 @@ public class ScheduleActivity extends AppCompatActivity {
         }
     }
 
-    private void displayWeeklySchedule() {
-        // Получаем ссылки на все RecyclerView
-        RecyclerView recyclerViewMonday = findViewById(R.id.recyclerViewMonday);
-        RecyclerView recyclerViewTuesday = findViewById(R.id.recyclerViewTuesday);
-        RecyclerView recyclerViewWednesday = findViewById(R.id.recyclerViewWednesday);
-        RecyclerView recyclerViewThursday = findViewById(R.id.recyclerViewThursday);
-        RecyclerView recyclerViewFriday = findViewById(R.id.recyclerViewFriday);
-        RecyclerView recyclerViewSaturday = findViewById(R.id.recyclerViewSaturday);
-        RecyclerView recyclerViewSunday = findViewById(R.id.recyclerViewSunday);
+    private void displayScheduleForToday() {
+        Calendar calendar = Calendar.getInstance();
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
-        // Массив с названиями дней недели
-        String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-
-        // Создаем адаптеры для каждого RecyclerView и устанавливаем их
-        recyclerViewMonday.setAdapter(new ScheduleAdapter(weeklySchedule.get(0), daysOfWeek[0]));
-        recyclerViewTuesday.setAdapter(new ScheduleAdapter(weeklySchedule.get(1), daysOfWeek[1]));
-        recyclerViewWednesday.setAdapter(new ScheduleAdapter(weeklySchedule.get(2), daysOfWeek[2]));
-        recyclerViewThursday.setAdapter(new ScheduleAdapter(weeklySchedule.get(3), daysOfWeek[3]));
-        recyclerViewFriday.setAdapter(new ScheduleAdapter(weeklySchedule.get(4), daysOfWeek[4]));
-        recyclerViewSaturday.setAdapter(new ScheduleAdapter(weeklySchedule.get(5), daysOfWeek[5]));
-        recyclerViewSunday.setAdapter(new ScheduleAdapter(weeklySchedule.get(6), daysOfWeek[6]));
+        switch (dayOfWeek) {
+            case Calendar.SUNDAY:
+                RadioButton radioSunday = binding.radioSunday;
+                radioSunday.setChecked(true);
+                displayScheduleForSelectedRadio(6);
+                break;
+            case Calendar.MONDAY:
+                RadioButton radioMonday = binding.radioMonday;
+                radioMonday.setChecked(true);
+                displayScheduleForSelectedRadio(0);
+                break;
+            case Calendar.TUESDAY:
+                RadioButton radioTuesday = binding.radioTuesday;
+                radioTuesday.setChecked(true);
+                displayScheduleForSelectedRadio(1);
+                break;
+            case Calendar.WEDNESDAY:
+                RadioButton radioWednesday = binding.radioWednesday;
+                radioWednesday.setChecked(true);
+                displayScheduleForSelectedRadio(2);
+                break;
+            case Calendar.THURSDAY:
+                RadioButton radioThursday = binding.radioThursday;
+                radioThursday.setChecked(true);
+                displayScheduleForSelectedRadio(3);
+                break;
+            case Calendar.FRIDAY:
+                RadioButton radioFriday = binding.radioFriday;
+                radioFriday.setChecked(true);
+                displayScheduleForSelectedRadio(4);
+                break;
+            case Calendar.SATURDAY:
+                RadioButton radioSaturday = binding.radioSaturday;
+                radioSaturday.setChecked(true);
+                displayScheduleForSelectedRadio(5);
+                break;
+            default:
+                // Handle any unexpected values
+                break;
+        }
     }
 
+    private void displayScheduleForSelectedDay(String selectedDay) {
+        switch (selectedDay) {
+            case "Пн":
+                displayScheduleForSelectedRadio(0);
+                break;
+            case "Вт":
+                displayScheduleForSelectedRadio(1);
+                break;
+            case "Ср":
+                displayScheduleForSelectedRadio(2);
+                break;
+            case "Чт":
+                displayScheduleForSelectedRadio(3);
+                break;
+            case "Пт":
+                displayScheduleForSelectedRadio(4);
+                break;
+            case "Сб":
+                displayScheduleForSelectedRadio(5);
+                break;
+            case "Вс":
+                displayScheduleForSelectedRadio(6);
+                break;
+            default:
+                // Handle any unexpected values
+                break;
+        }
+    }
 
+    private void displayScheduleForSelectedRadio(int dayIndex) {
+        // Получаем ссылку на RecyclerView
+        RecyclerView recyclerViewSchedule = findViewById(R.id.recyclerViewSchedule);
+        // Создаем адаптер для расписания выбранного дня
+        String selectedDay = "test";  // This should be properly localized
+        ScheduleAdapter adapter = new ScheduleAdapter(weeklySchedule.get(dayIndex), selectedDay);
+        recyclerViewSchedule.setAdapter(adapter);
+    }
+
+    // Listener interface to handle schedule load completion
+    interface OnScheduleLoadListener {
+        void onScheduleLoaded();
+    }
 }
