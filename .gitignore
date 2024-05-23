@@ -13,7 +13,3 @@
 .externalNativeBuild
 .cxx
 local.properties
-.idea
-gradle
-gradlew*
-images
