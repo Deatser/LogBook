@@ -23,7 +23,7 @@
             android:textAlignment="center"
             android:paddingBottom="24dp"/>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/editTextGroupNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:inputType="text"
             android:paddingBottom="16dp"/>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/editTextDayOfWeek"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:inputType="text"
             android:paddingBottom="16dp"/>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/editTextLessonNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             android:inputType="number"
             android:paddingBottom="16dp"/>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/editTextLessonName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

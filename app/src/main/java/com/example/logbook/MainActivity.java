@@ -4,8 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
-    private EditText editTextGroupNumber;
-    private EditText editTextDayOfWeek;
-    private EditText editTextLessonNumber;
-    private EditText editTextLessonName;
+    private AutoCompleteTextView editTextGroupNumber;
+    private AutoCompleteTextView editTextDayOfWeek;
+    private AutoCompleteTextView editTextLessonNumber;
+    private AutoCompleteTextView editTextLessonName;
     private Button SendBtn;
 
     private FirebaseAuth mAuth;
@@ -53,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         ref = database.getReference();
 
+        // Инициализация адаптеров для AutoCompleteTextView
+        setupAutoCompleteTextViews();
+
         SendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
                 String dayOfWeek = editTextDayOfWeek.getText().toString();
                 String lessonNumber = editTextLessonNumber.getText().toString();
                 String lessonName = editTextLessonName.getText().toString();
-
 
                 // Проверка значения дня недели
                 if (!isValidDayOfWeek(dayOfWeek)) {
@@ -93,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             // Успешно установлено новое значение
                             Toast.makeText(MainActivity.this, "Данные успешно отправлены", Toast.LENGTH_SHORT).show();
+                            // Очистка полей после успешной отправки
+                            clearInputFields();
                         }
                     }
                 });
@@ -105,11 +110,9 @@ public class MainActivity extends AppCompatActivity {
         // Снимите выделение с всех элементов
         bottomNavigationView.getMenu().findItem(R.id.diary).setChecked(false);
 
-
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                 int itemId = item.getItemId();
                 if (itemId == R.id.guide) {
                     startActivity(new Intent(MainActivity.this, GuideActivity.class));
@@ -121,12 +124,81 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, ActivitySettings.class));
                     return true;
                 }
-
                 return false;
             }
         });
+    }
+
+    // Метод для настройки AutoCompleteTextView
+    private void setupAutoCompleteTextViews() {
+        // Списки подсказок
+        
+        //На будущее: это можно закинуть в Firebase
+        String[] groupNumbers = {"IKBO3322", "IKBO3422"};
+        String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        String[] lessonNumbers = {"1", "2", "3", "4", "5", "6"};
+        String[] lessonNames = {"Выходной =)","Дизайн мобильных приложений", "Программирование на языке Питон", "Физическая культура",
+                "Технология разработки программных приложений", "Проектирование баз данных", "Разработка мобильных приложений",
+                "Технология разработки программных приложений (Лекция)", "Теория вероятностей и математическая статистика", "Анализ и концептуальное моделирование систем",
+                "Иностарнный язык", "Проектирование баз данных (Лекция)", "Дизайн мобильных приложений (Лекция)"
+        };
+
+        // Адаптеры для AutoCompleteTextView
+        ArrayAdapter<String> groupNumberAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, groupNumbers);
+        ArrayAdapter<String> dayOfWeekAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, daysOfWeek);
+        ArrayAdapter<String> lessonNumberAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, lessonNumbers);
+        ArrayAdapter<String> lessonNameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, lessonNames);
+
+        // Установка адаптеров
+        editTextGroupNumber.setAdapter(groupNumberAdapter);
+        editTextDayOfWeek.setAdapter(dayOfWeekAdapter);
+        editTextLessonNumber.setAdapter(lessonNumberAdapter);
+        editTextLessonName.setAdapter(lessonNameAdapter);
+
+        // Включение фильтрации в адаптерах
+        editTextGroupNumber.setThreshold(0);
+        editTextGroupNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    editTextGroupNumber.showDropDown();
+                }
+            }
+        });
+
+        editTextDayOfWeek.setThreshold(0);
+        editTextDayOfWeek.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    editTextDayOfWeek.showDropDown();
+                }
+            }
+        });
+
+        editTextLessonNumber.setThreshold(0);
+        editTextLessonNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    editTextLessonNumber.showDropDown();
+                }
+            }
+        });
+
+        editTextLessonName.setThreshold(0);
+        editTextLessonName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    editTextLessonName.showDropDown();
+                }
+            }
+        });
+
 
     }
+
     // Метод для проверки правильности дня недели
     private boolean isValidDayOfWeek(String dayOfWeek) {
         return dayOfWeek.equalsIgnoreCase("Monday") ||
@@ -136,5 +208,11 @@ public class MainActivity extends AppCompatActivity {
                 dayOfWeek.equalsIgnoreCase("Friday") ||
                 dayOfWeek.equalsIgnoreCase("Saturday") ||
                 dayOfWeek.equalsIgnoreCase("Sunday");
+    }
+
+    // Метод для очистки полей ввода
+    private void clearInputFields() {
+        editTextLessonNumber.setText("");
+        editTextLessonName.setText("");
     }
 }
