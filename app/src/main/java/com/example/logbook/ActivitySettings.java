@@ -47,6 +47,8 @@ public class ActivitySettings extends AppCompatActivity {
         Button confirmButton = binding.confirmButton;
         Button logoutButton = binding.logoutButton;
 
+
+
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +88,7 @@ public class ActivitySettings extends AppCompatActivity {
                 mAuth.signOut();
                 Intent intent = new Intent(ActivitySettings.this, LoginActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
@@ -98,18 +101,28 @@ public class ActivitySettings extends AppCompatActivity {
                 int itemId = item.getItemId();
                 if (itemId == R.id.guide) {
                     startActivity(new Intent(ActivitySettings.this, GuideActivity.class));
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    return true;
                 } else if (itemId == R.id.diary) {
                     startActivity(new Intent(ActivitySettings.this, ScheduleActivity.class));
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     return true;
                 } else if (itemId == R.id.settings) {
                     return true;
                 } else if (itemId == R.id.about) {
                     startActivity(new Intent(ActivitySettings.this, ActivityAbout.class));
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     return true;
                 }
                 return false;
             }
         });
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
     }
 
     private void checkAndRequestNotificationPermission() {
@@ -153,6 +166,10 @@ public class ActivitySettings extends AppCompatActivity {
                 .setContentText("Ваш пароль был успешно изменен.")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            //проверка разрешения уведомлять
+            return;
+        }
         notificationManager.notify(1, builder.build());
     }
 }

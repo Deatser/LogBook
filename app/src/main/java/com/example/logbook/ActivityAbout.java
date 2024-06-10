@@ -38,16 +38,25 @@ public class ActivityAbout extends AppCompatActivity {
                     return true;
                 } else if (itemId == R.id.diary) {
                     startActivity(new Intent(ActivityAbout.this, ScheduleActivity.class));
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     return true;
                 } else if (itemId == R.id.settings) {
                     startActivity(new Intent(ActivityAbout.this, ActivitySettings.class));
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     return true;
                 } else if (itemId == R.id.guide) {
                     startActivity(new Intent(ActivityAbout.this, GuideActivity.class));
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     return true;
                 }
                 return false;
             }
         });
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
     }
 }

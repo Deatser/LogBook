@@ -1,8 +1,13 @@
 package com.example.logbook;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,6 +16,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,12 +27,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
 
 import java.io.IOException;
 
@@ -46,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Константы для разрешений
     private static final int REQUEST_CAMERA_PERMISSION = 200;
-    private static final int REQUEST_IMAGE_CAPTURE = 100;
-    private static final int REQUEST_IMAGE_PICK = 300;
 
     // Переменная для хранения URI выбранного изображения
     private Uri selectedImageUri;
@@ -55,6 +54,24 @@ public class MainActivity extends AppCompatActivity {
     // Константы для SharedPreferences
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_IMAGE_URI = "imageUri";
+
+    // Переход в активити
+    private final ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null && result.getData().getData() != null) {
+                    selectedImageUri = result.getData().getData();
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
+                        imageViewPhoto.setImageBitmap(bitmap);
+                        saveImageUri(selectedImageUri);  // Сохранение URI выбранного изображения
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,20 +174,30 @@ public class MainActivity extends AppCompatActivity {
                 int itemId = item.getItemId();
                 if (itemId == R.id.guide) {
                     startActivity(new Intent(MainActivity.this, GuideActivity.class));
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     return true;
                 } else if (itemId == R.id.diary) {
                     startActivity(new Intent(MainActivity.this, ScheduleActivity.class));
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     return true;
                 } else if (itemId == R.id.settings) {
                     startActivity(new Intent(MainActivity.this, ActivitySettings.class));
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     return true;
                 } else if (itemId == R.id.about) {
                     startActivity(new Intent(MainActivity.this, ActivityAbout.class));
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     return true;
                 }
                 return false;
             }
         });
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
     }
 
     // Метод для настройки AutoCompleteTextView
@@ -263,24 +290,7 @@ public class MainActivity extends AppCompatActivity {
     // Метод для открытия выбора изображения
     private void openImageChooser() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, REQUEST_IMAGE_PICK);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_IMAGE_PICK && data != null && data.getData() != null) {
-                selectedImageUri = data.getData();
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
-                    imageViewPhoto.setImageBitmap(bitmap);
-                    saveImageUri(selectedImageUri);  // Сохранение URI выбранного изображения
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        pickImageLauncher.launch(intent);
     }
 
     // Метод для сохранения URI изображения в SharedPreferences

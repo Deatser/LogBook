@@ -64,14 +64,17 @@ public class ScheduleActivity extends AppCompatActivity {
                 int itemId = item.getItemId();
                 if (itemId == R.id.guide) {
                     startActivity(new Intent(ScheduleActivity.this, GuideActivity.class));
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     return true;
                 } else if (itemId == R.id.diary) {
                     return true;
                 } else if (itemId == R.id.settings) {
                     startActivity(new Intent(ScheduleActivity.this, ActivitySettings.class));
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     return true;
                 } else if (itemId == R.id.about) {
                     startActivity(new Intent(ScheduleActivity.this, ActivityAbout.class));
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     return true;
                 }
                 return false;
@@ -99,6 +102,7 @@ public class ScheduleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ScheduleActivity.this, MainActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
         });
 
@@ -129,6 +133,13 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+    }
+
 
     private void loadWeeklySchedule(OnScheduleLoadListener listener) {
         // Создаем список расписаний на всю неделю
