@@ -12,11 +12,11 @@ import java.util.ArrayList;
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder> {
 
     private ArrayList<String> scheduleList;
-    private String dayOfWeek;
+    private String[] scheduleTimes;
 
-    public ScheduleAdapter(ArrayList<String> scheduleList, String dayOfWeek) {
+    public ScheduleAdapter(ArrayList<String> scheduleList, String[] scheduleTimes) {
         this.scheduleList = scheduleList;
-        this.dayOfWeek = dayOfWeek;
+        this.scheduleTimes = scheduleTimes;
     }
 
     @NonNull
@@ -30,7 +30,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     public void onBindViewHolder(@NonNull ScheduleViewHolder holder, int position) {
         String subject = scheduleList.get(position);
         holder.textViewSubject.setText(subject);
-        holder.textViewDayOfWeek.setText(dayOfWeek);
+        if (position < scheduleTimes.length) {
+            holder.textViewScheduleTime.setText(scheduleTimes[position]);
+        } else {
+            holder.textViewScheduleTime.setText("Time not available");
+        }
     }
 
     @Override
@@ -40,12 +44,12 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
     public static class ScheduleViewHolder extends RecyclerView.ViewHolder {
         TextView textViewSubject;
-        TextView textViewDayOfWeek;
+        TextView textViewScheduleTime;
 
         public ScheduleViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewSubject = itemView.findViewById(R.id.textViewSubject);
-            textViewDayOfWeek = itemView.findViewById(R.id.textViewDayOfWeek);
+            textViewScheduleTime = itemView.findViewById(R.id.textViewDayOfWeek);
         }
     }
 }
