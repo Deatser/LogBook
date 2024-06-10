@@ -123,6 +123,9 @@ public class MainActivity extends AppCompatActivity {
                 } else if (itemId == R.id.settings) {
                     startActivity(new Intent(MainActivity.this, ActivitySettings.class));
                     return true;
+                } else if (itemId == R.id.about) {
+                    startActivity(new Intent(MainActivity.this, ActivityAbout.class));
+                    return true;
                 }
                 return false;
             }

@@ -8,9 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import com.example.logbook.databinding.ActivityAboutBinding;
-import com.example.logbook.databinding.ActivityGuideBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.NonNull;
 import android.os.Bundle;
@@ -19,33 +17,33 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class GuideActivity extends AppCompatActivity {
+public class ActivityAbout extends AppCompatActivity {
 
-    private ActivityGuideBinding binding;
+    private ActivityAboutBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityGuideBinding.inflate(getLayoutInflater());
+        binding = ActivityAboutBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
 
         BottomNavigationView bottomNavigationView = binding.bottomNavigationView;
-        bottomNavigationView.setSelectedItemId(R.id.guide);
+        bottomNavigationView.setSelectedItemId(R.id.about);
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
-                if (itemId == R.id.guide) {
+                if (itemId == R.id.about) {
                     return true;
                 } else if (itemId == R.id.diary) {
-                    startActivity(new Intent(GuideActivity.this, ScheduleActivity.class));
+                    startActivity(new Intent(ActivityAbout.this, ScheduleActivity.class));
                     return true;
                 } else if (itemId == R.id.settings) {
-                    startActivity(new Intent(GuideActivity.this, ActivitySettings.class));
+                    startActivity(new Intent(ActivityAbout.this, ActivitySettings.class));
                     return true;
-                } else if (itemId == R.id.about) {
-                    startActivity(new Intent(GuideActivity.this, ActivityAbout.class));
+                } else if (itemId == R.id.guide) {
+                    startActivity(new Intent(ActivityAbout.this, GuideActivity.class));
                     return true;
                 }
                 return false;

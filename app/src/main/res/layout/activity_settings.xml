@@ -63,11 +63,20 @@
         android:id="@+id/versionInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Автор: Селезнев Сергей,\nСтудент группы ИКБО-33-22\n\nAlpha v1.0.3"
+        android:layout_above="@id/versionYear"
+        android:text="Автор: Селезнев Сергей,\nСтудент группы ИКБО-33-22\nemail: koranitplay@gmail.com\n\nAlpha v1.0.4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        />
+    <TextView
+        android:id="@+id/versionYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Год разработки: 2024"
         android:layout_above="@id/bottomNavigationView"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp" />
-
+        android:layout_marginBottom="16dp"
+        />
     <!-- Добавляем нижнее меню -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

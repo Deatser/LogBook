@@ -33,7 +33,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
         if (position < scheduleTimes.length) {
             holder.textViewScheduleTime.setText(scheduleTimes[position]);
         } else {
-            holder.textViewScheduleTime.setText("Time not available");
+            holder.textViewScheduleTime.setText("Время недоступно");
         }
     }
 

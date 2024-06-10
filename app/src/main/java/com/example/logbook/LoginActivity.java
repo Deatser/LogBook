@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Проверка на пустые поля
        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Вход выполнен успешно
-                            Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Добро пожаловать!", Toast.LENGTH_SHORT).show();
 
                             ref.child("Users").child(mAuth.getCurrentUser().getUid()).child("email").setValue(email);
 
@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                             navigateToScheduleActivity();
                         } else {
                             // Ошибка входа
-                            Toast.makeText(LoginActivity.this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Не удалось войти по причине: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Гайд"
-        android:icon="@drawable/question_answer_help_svgrepo_com"
+    <item android:title="Инструкция"
+        android:icon="@drawable/question_circle_svgrepo_com"
         android:id="@+id/guide"/>
+    <item android:title="О программе"
+        android:icon="@drawable/person_line_drawing_svgrepo_com"
+        android:id="@+id/about"/>
     <item android:title="Журнал"
         android:icon="@drawable/diary_svgrepo_com"
         android:id="@+id/diary"/>

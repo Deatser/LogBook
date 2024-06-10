@@ -70,6 +70,9 @@ public class ScheduleActivity extends AppCompatActivity {
                 } else if (itemId == R.id.settings) {
                     startActivity(new Intent(ScheduleActivity.this, ActivitySettings.class));
                     return true;
+                } else if (itemId == R.id.about) {
+                    startActivity(new Intent(ScheduleActivity.this, ActivityAbout.class));
+                    return true;
                 }
                 return false;
             }

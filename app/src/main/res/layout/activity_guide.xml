@@ -27,47 +27,42 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1. Откройте приложение и войдите в свою учетную запись."
+                android:text="Приложение состоит из 4-ёх основных разделов."
                 android:textSize="18sp"
                 android:paddingBottom="8dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="2. На главном экране вы увидите расписание на неделю."
+                android:text="1. Инструкция: Раздел с описанием того, как пользоваться приложением."
                 android:textSize="18sp"
                 android:paddingBottom="8dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="3. Для изменения расписания нажмите на кнопку 'Изменение расписания'. (Только для администраторов)"
+                android:text="2. О программе: Раздел с описанием предназначения приложения"
                 android:textSize="18sp"
                 android:paddingBottom="8dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="4. Используйте нижнее меню для навигации между разделами 'Гайд', 'Журнал' и 'Настройки'."
+                android:text="3. Журнал: Основной раздел для просмотра расписания. Есть возможность его изменения (Только для администраторов)"
+                android:textSize="18sp"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="4. Настройки: Раздел с информацией об авторе, а также возможностью изменять пароль и выходить из аккаунта"
                 android:textSize="18sp"
                 android:paddingBottom="16dp"/>
 
 
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/read_svgrepo_com"
-                android:contentDescription="Example Image"
-                android:scaleType="centerInside"
-                android:paddingBottom="16dp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Наслаждайтесь использованием моего приложения!"
-                android:textSize="18sp"
-                android:paddingBottom="8dp"/>
+
 
         </LinearLayout>
     </ScrollView>

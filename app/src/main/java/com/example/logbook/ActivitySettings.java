@@ -103,6 +103,9 @@ public class ActivitySettings extends AppCompatActivity {
                     return true;
                 } else if (itemId == R.id.settings) {
                     return true;
+                } else if (itemId == R.id.about) {
+                    startActivity(new Intent(ActivitySettings.this, ActivityAbout.class));
+                    return true;
                 }
                 return false;
             }
@@ -128,7 +131,7 @@ public class ActivitySettings extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 showPasswordChangeNotification();
             } else {
-                Toast.makeText(this, "Permission for notifications denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Доступ запрещён", Toast.LENGTH_SHORT).show();
             }
         }
     }
