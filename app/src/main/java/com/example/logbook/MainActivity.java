@@ -1,12 +1,14 @@
 package com.example.logbook;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,11 +17,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.logbook.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,10 +38,23 @@ public class MainActivity extends AppCompatActivity {
     private AutoCompleteTextView editTextLessonNumber;
     private AutoCompleteTextView editTextLessonName;
     private Button SendBtn;
+    private ImageView imageViewPhoto;
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference ref;
+
+    // Константы для разрешений
+    private static final int REQUEST_CAMERA_PERMISSION = 200;
+    private static final int REQUEST_IMAGE_CAPTURE = 100;
+    private static final int REQUEST_IMAGE_PICK = 300;
+
+    // Переменная для хранения URI выбранного изображения
+    private Uri selectedImageUri;
+
+    // Константы для SharedPreferences
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_IMAGE_URI = "imageUri";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         editTextLessonNumber = binding.editTextLessonNumber;
         editTextLessonName = binding.editTextLessonName;
         SendBtn = binding.SendBtn;
+        imageViewPhoto = binding.imageViewPhoto;
 
         // Инициализация Firebase
         mAuth = FirebaseAuth.getInstance();
@@ -56,6 +78,25 @@ public class MainActivity extends AppCompatActivity {
 
         // Инициализация адаптеров для AutoCompleteTextView
         setupAutoCompleteTextViews();
+
+        // Восстановление сохраненного изображения
+        loadImage();
+
+        // Обработчик нажатия на кнопку изменения фотографии
+        Button buttonChangePhoto = findViewById(R.id.buttonChangePhoto);
+        buttonChangePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Проверяем разрешения
+                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                        checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CAMERA_PERMISSION);
+                } else {
+                    // Если разрешения уже есть, запускаем процесс выбора изображения
+                    openImageChooser();
+                }
+            }
+        });
 
         SendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
     // Метод для настройки AutoCompleteTextView
     private void setupAutoCompleteTextViews() {
         // Списки подсказок
-        
+
         //На будущее: это можно закинуть в Firebase
         String[] groupNumbers = {"IKBO3322", "IKBO3422"};
         String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
@@ -198,24 +239,70 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-    }
-
-    // Метод для проверки правильности дня недели
-    private boolean isValidDayOfWeek(String dayOfWeek) {
-        return dayOfWeek.equalsIgnoreCase("Monday") ||
-                dayOfWeek.equalsIgnoreCase("Tuesday") ||
-                dayOfWeek.equalsIgnoreCase("Wednesday") ||
-                dayOfWeek.equalsIgnoreCase("Thursday") ||
-                dayOfWeek.equalsIgnoreCase("Friday") ||
-                dayOfWeek.equalsIgnoreCase("Saturday") ||
-                dayOfWeek.equalsIgnoreCase("Sunday");
     }
 
     // Метод для очистки полей ввода
     private void clearInputFields() {
+        editTextGroupNumber.setText("");
+        editTextDayOfWeek.setText("");
         editTextLessonNumber.setText("");
         editTextLessonName.setText("");
+    }
+
+    // Метод для проверки значения дня недели
+    private boolean isValidDayOfWeek(String dayOfWeek) {
+        String[] validDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        for (String validDay : validDays) {
+            if (validDay.equalsIgnoreCase(dayOfWeek)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Метод для открытия выбора изображения
+    private void openImageChooser() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_IMAGE_PICK);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_IMAGE_PICK && data != null && data.getData() != null) {
+                selectedImageUri = data.getData();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
+                    imageViewPhoto.setImageBitmap(bitmap);
+                    saveImageUri(selectedImageUri);  // Сохранение URI выбранного изображения
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    // Метод для сохранения URI изображения в SharedPreferences
+    private void saveImageUri(Uri imageUri) {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(PREF_IMAGE_URI, imageUri.toString());
+        editor.apply();
+    }
+
+    // Метод для загрузки URI изображения из SharedPreferences и его отображения
+    private void loadImage() {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String imageUriString = prefs.getString(PREF_IMAGE_URI, null);
+        if (imageUriString != null) {
+            selectedImageUri = Uri.parse(imageUriString);
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
+                imageViewPhoto.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

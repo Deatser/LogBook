@@ -4,65 +4,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Content Layout -->
-    <LinearLayout
+    <!-- Scrollable Content Layout -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="center_horizontal"
         android:layout_gravity="top"
         android:layout_marginBottom="56dp">
 
-        <TextView
-            android:id="@+id/welcomeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Добро пожаловать, администратор! Заполните все поля для изменения расписания"
-            android:textSize="18sp"
-            android:textAlignment="center"
-            android:paddingBottom="24dp"/>
-
-        <AutoCompleteTextView
-            android:id="@+id/editTextGroupNumber"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Номер Группы"
-            android:inputType="text"
-            android:paddingBottom="16dp"/>
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:gravity="center_horizontal">
 
-        <AutoCompleteTextView
-            android:id="@+id/editTextDayOfWeek"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="День недели"
-            android:inputType="text"
-            android:paddingBottom="16dp"/>
+            <TextView
+                android:id="@+id/welcomeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Добро пожаловать, администратор! Заполните все поля для изменения расписания"
+                android:textSize="18sp"
+                android:textAlignment="center"
+                android:paddingBottom="24dp"/>
 
-        <AutoCompleteTextView
-            android:id="@+id/editTextLessonNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Номер пары"
-            android:inputType="number"
-            android:paddingBottom="16dp"/>
+            <AutoCompleteTextView
+                android:id="@+id/editTextGroupNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Номер Группы"
+                android:inputType="text"
+                android:paddingBottom="16dp"/>
 
-        <AutoCompleteTextView
-            android:id="@+id/editTextLessonName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Название пары"
-            android:inputType="text"
-            android:paddingBottom="16dp"/>
+            <AutoCompleteTextView
+                android:id="@+id/editTextDayOfWeek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="День недели"
+                android:inputType="text"
+                android:paddingBottom="16dp"/>
 
-        <Button
-            android:id="@+id/SendBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Отправить данные"
-            android:layout_gravity="center_horizontal"/>
+            <AutoCompleteTextView
+                android:id="@+id/editTextLessonNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Номер пары"
+                android:inputType="number"
+                android:paddingBottom="16dp"/>
 
-    </LinearLayout>
+            <AutoCompleteTextView
+                android:id="@+id/editTextLessonName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Название пары"
+                android:inputType="text"
+                android:paddingBottom="16dp"/>
+
+            <Button
+                android:id="@+id/SendBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Отправить данные"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="30dp"/>
+
+            <Button
+                android:id="@+id/buttonChangePhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Изменить фото"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="16dp"/>
+
+            <ImageView
+                android:id="@+id/imageViewPhoto"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/book_svgrepo_com"
+                android:contentDescription="Фото"
+                android:scaleType="centerCrop"/>
+        </LinearLayout>
+    </ScrollView>
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
