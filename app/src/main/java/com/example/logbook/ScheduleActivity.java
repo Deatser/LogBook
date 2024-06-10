@@ -262,8 +262,7 @@ public class ScheduleActivity extends AppCompatActivity {
         // Получаем ссылку на RecyclerView
         RecyclerView recyclerViewSchedule = findViewById(R.id.recyclerViewSchedule);
         // Создаем адаптер для расписания выбранного дня
-        String selectedDay = "test";  // This should be properly localized
-        ScheduleAdapter adapter = new ScheduleAdapter(weeklySchedule.get(dayIndex), selectedDay);
+        ScheduleAdapter adapter = new ScheduleAdapter(weeklySchedule.get(dayIndex), getResources().getStringArray(R.array.scheduleTimes));
         recyclerViewSchedule.setAdapter(adapter);
     }
 
