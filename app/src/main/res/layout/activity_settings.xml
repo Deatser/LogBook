@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/versionYear"
-        android:text="Автор: Селезнев Сергей,\nСтудент группы ИКБО-33-22\nemail: koranitplay@gmail.com\n\nBeta v1.0"
+        android:text="Автор: Селезнев Сергей,\nСтудент группы ИКБО-33-22\nemail: koranitplay@gmail.com\n\nBeta v1.0.1"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
         />

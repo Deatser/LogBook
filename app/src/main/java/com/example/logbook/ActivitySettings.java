@@ -119,11 +119,7 @@ public class ActivitySettings extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-    }
+
 
     private void checkAndRequestNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

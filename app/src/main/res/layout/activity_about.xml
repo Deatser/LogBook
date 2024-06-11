@@ -3,51 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/orange_background"
     android:orientation="vertical">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="16dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
             android:text="О программе"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:paddingBottom="16dp"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Эта программа - Электронный дневник для просмотра
-расписания различных групп, а также с возможностью редактирования расписания в режиме реального времени
-для людей с правами администратора."
-            android:textSize="18sp"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp"
+            android:text="Эта программа - Электронный дневник для просмотра расписания различных групп, а также с возможностью редактирования расписания в режиме реального времени для людей с правами администратора."
+            android:textSize="18sp" />
+    </LinearLayout>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/read_svgrepo_com"
-                android:contentDescription="Example Image"
-                android:scaleType="centerInside"
-                android:paddingBottom="16dp"/>
-        </LinearLayout>
-    </ScrollView>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <!-- Добавляем нижнее меню -->
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/arc" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/realred"
+        app:itemTextColor="@color/mainyellow"
+        app:itemIconTint="@color/mainyellow"
         app:menu="@menu/bottom_nav_menu"/>
+
+
+
 </LinearLayout>
