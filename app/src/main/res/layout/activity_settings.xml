@@ -1,88 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/orange_background">
 
-    <!-- Title -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <!-- ImageView для перемещения -->
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="650dp"
+        android:layout_height="670dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.5"
+        android:layout_marginBottom="475dp"
+        app:srcCompat="@drawable/backforreal" />
+
     <TextView
-        android:id="@+id/titleChangePassword"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Изменить пароль"
-        android:textSize="20sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:text="Настройки"
+        android:textColor="@color/mainyellow"
+        android:fontFamily="@font/comfortaa_bold"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
 
-    <!-- Old Password EditText -->
     <EditText
         android:id="@+id/oldPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="56dp"
+        android:layout_marginBottom="100dp"
+        android:fontFamily="@font/comfortaa_bold"
         android:hint="Старый пароль"
-        android:inputType="textPassword"
-        android:layout_below="@id/titleChangePassword"
+        android:textColorHint="@color/mainyellow"
         android:minHeight="48dp"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.174" />
 
-    <!-- New Password EditText -->
     <EditText
         android:id="@+id/newPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="56dp"
+        android:fontFamily="@font/comfortaa_bold"
         android:hint="Новый пароль"
         android:inputType="textPassword"
-        android:layout_below="@id/oldPassword"
         android:minHeight="48dp"
-        android:layout_marginTop="16dp" />
+        android:textColorHint="@color/mainyellow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.244" />
 
-    <!-- Confirm Button -->
-    <Button
-        android:id="@+id/confirmButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Подтвердить"
-        android:layout_below="@id/newPassword"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        <!-- Добавляем нижнее меню -->
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/button_background"
+            android:fontFamily="@font/comfortaa_bold"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="10dp"
+            android:text="Подтвердить"
 
-    <!-- Logout Button -->
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Разлогиниться"
-        android:layout_below="@id/confirmButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+            android:textColor="@color/mainyellow"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.369" />
 
-    <!-- Version Info Text -->
-    <TextView
-        android:id="@+id/versionInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/versionYear"
-        android:text="Автор: Селезнев Сергей,\nСтудент группы ИКБО-33-22\nemail: koranitplay@gmail.com\n\nBeta v1.0.1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        />
-    <TextView
-        android:id="@+id/versionYear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Год разработки: 2024"
-        android:layout_above="@id/bottomNavigationView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        />
-    <!-- Добавляем нижнее меню -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_nav_menu" />
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/button_background"
+            android:fontFamily="@font/comfortaa_bold"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="10dp"
+            android:text="Разлогиниться"
 
-</RelativeLayout>
+            android:textColor="@color/mainyellow"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.47" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/arc" />
+
+        <!-- Version Info Text -->
+
+        <TextView
+            android:id="@+id/versionInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Автор: Селезнев Сергей,\nСтудент группы ИКБО-33-22\nemail: koranitplay@gmail.com\n\nBeta v1.1"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.97"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="12dp"
+            android:textColor="@color/mainyellow"
+            android:fontFamily="@font/comfortaa_bold"/>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/realred"
+            app:itemIconTint="@color/mainyellow"
+            app:itemTextColor="@color/mainyellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_nav_menu" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+</LinearLayout>

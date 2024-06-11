@@ -174,19 +174,23 @@ public class MainActivity extends AppCompatActivity {
                 int itemId = item.getItemId();
                 if (itemId == R.id.guide) {
                     startActivity(new Intent(MainActivity.this, GuideActivity.class));
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    //overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    overridePendingTransition(0, 0);  // Отключение анимации перехода
                     return true;
                 } else if (itemId == R.id.diary) {
                     startActivity(new Intent(MainActivity.this, ScheduleActivity.class));
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                  //  overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    overridePendingTransition(0, 0);  // Отключение анимации перехода
                     return true;
                 } else if (itemId == R.id.settings) {
                     startActivity(new Intent(MainActivity.this, ActivitySettings.class));
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                  //  overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    overridePendingTransition(0, 0);  // Отключение анимации перехода
                     return true;
                 } else if (itemId == R.id.about) {
                     startActivity(new Intent(MainActivity.this, ActivityAbout.class));
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                  //  overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    overridePendingTransition(0, 0);  // Отключение анимации перехода
                     return true;
                 }
                 return false;

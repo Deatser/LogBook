@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="16dp"
+    android:background="@color/realred"
     >
 
     <TextView
@@ -11,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:textColor="@color/black"
+        android:textColor="@color/mainyellow"
+        android:fontFamily="@font/comfortaa_bold"
         android:layout_weight="0.5"
         android:layout_marginEnd="8dp"/>
 
@@ -20,6 +22,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:textColor="@color/mainyellow"
+        android:fontFamily="@font/comfortaa_bold"
         android:gravity="start"
         android:textSize="16sp"/>
 

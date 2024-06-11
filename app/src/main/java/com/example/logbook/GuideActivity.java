@@ -40,15 +40,18 @@ public class GuideActivity extends AppCompatActivity {
                     return true;
                 } else if (itemId == R.id.diary) {
                     startActivity(new Intent(GuideActivity.this, ScheduleActivity.class));
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                  //  overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    overridePendingTransition(0, 0);  // Отключение анимации перехода
                     return true;
                 } else if (itemId == R.id.settings) {
                     startActivity(new Intent(GuideActivity.this, ActivitySettings.class));
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                   // overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    overridePendingTransition(0, 0);  // Отключение анимации перехода
                     return true;
                 } else if (itemId == R.id.about) {
                     startActivity(new Intent(GuideActivity.this, ActivityAbout.class));
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                   // overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    overridePendingTransition(0, 0);  // Отключение анимации перехода
                     return true;
                 }
                 return false;

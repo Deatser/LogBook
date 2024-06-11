@@ -64,17 +64,20 @@ public class ScheduleActivity extends AppCompatActivity {
                 int itemId = item.getItemId();
                 if (itemId == R.id.guide) {
                     startActivity(new Intent(ScheduleActivity.this, GuideActivity.class));
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                  //  overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    overridePendingTransition(0, 0);  // Отключение анимации перехода
                     return true;
                 } else if (itemId == R.id.diary) {
                     return true;
                 } else if (itemId == R.id.settings) {
                     startActivity(new Intent(ScheduleActivity.this, ActivitySettings.class));
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                  //  overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    overridePendingTransition(0, 0);  // Отключение анимации перехода
                     return true;
                 } else if (itemId == R.id.about) {
                     startActivity(new Intent(ScheduleActivity.this, ActivityAbout.class));
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                   // overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    overridePendingTransition(0, 0);  // Отключение анимации перехода
                     return true;
                 }
                 return false;
@@ -102,7 +105,8 @@ public class ScheduleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ScheduleActivity.this, MainActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+             //   overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                overridePendingTransition(0, 0);  // Отключение анимации перехода
             }
         });
 

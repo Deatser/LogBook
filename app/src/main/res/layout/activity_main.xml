@@ -1,97 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/orange_background">
 
-    <!-- Scrollable Content Layout -->
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="top"
-        android:layout_marginBottom="56dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+
+        <!-- ImageView для перемещения -->
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="650dp"
+            android:layout_height="670dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_bias="0.5"
+            android:layout_marginBottom="475dp"
+            app:srcCompat="@drawable/backforreal" />
+
+        <TextView
+            android:id="@+id/welcomeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Редактирование"
+            android:textColor="@color/mainyellow"
+            android:fontFamily="@font/comfortaa_bold"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <AutoCompleteTextView
+            android:id="@+id/editTextGroupNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:gravity="center_horizontal">
+            android:layout_margin="56dp"
+            android:layout_marginBottom="100dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:hint="Номер Группы"
+            android:minHeight="48dp"
+            android:textColorHint="@color/mainyellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.14" />
 
-            <TextView
-                android:id="@+id/welcomeTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Добро пожаловать, администратор! Заполните все поля для изменения расписания"
-                android:textSize="18sp"
-                android:textAlignment="center"
-                android:paddingBottom="24dp"/>
+        <AutoCompleteTextView
+            android:id="@+id/editTextDayOfWeek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="56dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:hint="День недели"
+            android:minHeight="48dp"
+            android:textColorHint="@color/mainyellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.22" />
 
-            <AutoCompleteTextView
-                android:id="@+id/editTextGroupNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Номер Группы"
-                android:inputType="text"
-                android:paddingBottom="16dp"/>
+        <AutoCompleteTextView
+            android:id="@+id/editTextLessonNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="56dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:hint="Номер пары"
+            android:minHeight="48dp"
+            android:textColorHint="@color/mainyellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
 
-            <AutoCompleteTextView
-                android:id="@+id/editTextDayOfWeek"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="День недели"
-                android:inputType="text"
-                android:paddingBottom="16dp"/>
+        <AutoCompleteTextView
+            android:id="@+id/editTextLessonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="56dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:hint="Название пары"
+            android:minHeight="48dp"
+            android:textColorHint="@color/mainyellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.38" />
 
-            <AutoCompleteTextView
-                android:id="@+id/editTextLessonNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Номер пары"
-                android:inputType="number"
-                android:paddingBottom="16dp"/>
+        <Button
+            android:id="@+id/SendBtn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/button_background"
+            android:fontFamily="@font/comfortaa_bold"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="10dp"
+            android:text="Отправить"
 
-            <AutoCompleteTextView
-                android:id="@+id/editTextLessonName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Название пары"
-                android:inputType="text"
-                android:paddingBottom="16dp"/>
+            android:textColor="@color/mainyellow"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.49" />
 
-            <Button
-                android:id="@+id/SendBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Отправить данные"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="30dp"/>
+        <Button
+            android:id="@+id/buttonChangePhoto"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/button_background"
+            android:fontFamily="@font/comfortaa_bold"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="10dp"
+            android:text="Изменить фото"
 
-            <Button
-                android:id="@+id/buttonChangePhoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Изменить фото"
-                android:layout_gravity="center_horizontal"
-                android:paddingBottom="16dp"/>
+            android:textColor="@color/realred"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.66" />
 
-            <ImageView
-                android:id="@+id/imageViewPhoto"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/book_svgrepo_com"
-                android:contentDescription="Фото"
-                android:scaleType="centerCrop"/>
-        </LinearLayout>
-    </ScrollView>
+        <ImageView
+            android:id="@+id/imageViewPhoto"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="Фото"
+            android:scaleType="centerCrop"
 
-    <!-- Bottom Navigation -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:menu="@menu/bottom_nav_menu" />
+            android:src="@drawable/book_svgrepo_com"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonChangePhoto" />
 
-</FrameLayout>
+
+        <!-- Добавляем нижнее меню -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/arc" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/realred"
+            app:itemIconTint="@color/mainyellow"
+            app:itemTextColor="@color/mainyellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_nav_menu" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

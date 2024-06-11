@@ -88,7 +88,8 @@ public class ActivitySettings extends AppCompatActivity {
                 mAuth.signOut();
                 Intent intent = new Intent(ActivitySettings.this, LoginActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                //overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                overridePendingTransition(0, 0);  // Отключение анимации перехода
                 finish();
             }
         });
@@ -101,17 +102,20 @@ public class ActivitySettings extends AppCompatActivity {
                 int itemId = item.getItemId();
                 if (itemId == R.id.guide) {
                     startActivity(new Intent(ActivitySettings.this, GuideActivity.class));
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    overridePendingTransition(0, 0);  // Отключение анимации перехода
                     return true;
                 } else if (itemId == R.id.diary) {
                     startActivity(new Intent(ActivitySettings.this, ScheduleActivity.class));
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    overridePendingTransition(0, 0);  // Отключение анимации перехода
                     return true;
                 } else if (itemId == R.id.settings) {
                     return true;
                 } else if (itemId == R.id.about) {
                     startActivity(new Intent(ActivitySettings.this, ActivityAbout.class));
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    overridePendingTransition(0, 0);  // Отключение анимации перехода
                     return true;
                 }
                 return false;

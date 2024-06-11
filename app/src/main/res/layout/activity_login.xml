@@ -101,10 +101,7 @@
             android:layout_marginBottom="-20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@drawable/arc"
-            />
-
-
-
+            tools:layout_editor_absoluteX="0dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,75 +3,80 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/orange_background"
     android:orientation="vertical">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <!-- ImageView для перемещения -->
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="650dp"
+            android:layout_height="670dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_bias="0.5"
+            android:layout_marginBottom="475dp"
+            app:srcCompat="@drawable/backforreal" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Как пользоваться"
+            android:textColor="@color/mainyellow"
+            android:fontFamily="@font/comfortaa_bold"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <!-- Добавляем нижнее меню -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/comfortaa_bold"
+            android:padding="65dp"
+            android:text="Приложение включает 4 раздела:
+\n\n1. Инструкция: Как пользоваться приложением.
+\n\n2. О программе: Назначение приложения.
+\n\n3. Журнал: Просмотр и редактирование расписания (для администраторов).
+\n\n4. Настройки: Информация об авторе, изменение пароля, выход из аккаунта."
+            android:textColor="@color/mainyellow"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.167" />
+
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginBottom="-20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/arc" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Как пользоваться приложением"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:paddingBottom="16dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Приложение состоит из 4-ёх основных разделов."
-                android:textSize="18sp"
-                android:paddingBottom="8dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="1. Инструкция: Раздел с описанием того, как пользоваться приложением."
-                android:textSize="18sp"
-                android:paddingBottom="8dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="2. О программе: Раздел с описанием предназначения приложения"
-                android:textSize="18sp"
-                android:paddingBottom="8dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="3. Журнал: Основной раздел для просмотра расписания. Есть возможность его изменения (Только для администраторов)"
-                android:textSize="18sp"
-                android:paddingBottom="8dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="4. Настройки: Раздел с информацией об авторе, а также возможностью изменять пароль и выходить из аккаунта"
-                android:textSize="18sp"
-                android:paddingBottom="16dp"/>
-
-
-
-
-
-
-        </LinearLayout>
-    </ScrollView>
-
-    <!-- Добавляем нижнее меню -->
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:menu="@menu/bottom_nav_menu"/>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/realred"
+            app:itemIconTint="@color/mainyellow"
+            app:itemTextColor="@color/mainyellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_nav_menu" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
